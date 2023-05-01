@@ -1,17 +1,34 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'Data/senha_entity.dart';
+import 'Data/senha_sqlite_datasource..dart';
 
 class cadsenhas extends StatefulWidget {
   const cadsenhas({Key? key}) : super(key: key);
 
   @override
-  cadsenhasState createState() {
-    return cadsenhasState();
+  _cadsenhasState createState() {
+    return _cadsenhasState();
   }
 }
 
-class cadsenhasState extends State<cadsenhas> {
+class _cadsenhasState extends State<cadsenhas> {
+  TextEditingController descricaoController = TextEditingController();
+  TextEditingController loginController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
+  late final SenhaEntity _senhaEntity;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_senhaEntity.senhaID == 0) {
+      descricaoController.text = _senhaEntity.descricao!;
+      loginController.text = _senhaEntity.login!;
+      senhaController.text = _senhaEntity.senha!;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,70 +41,66 @@ class cadsenhasState extends State<cadsenhas> {
             onPressed: () => Navigator.pop(context, false),
           ),
         ),
-        body: _Body(),
+        body: Stack(
+          children: <Widget>[
+            ListView(children: <Widget>[
+              fieldDescricao(),
+              fieldLogin(),
+              fieldSenha(),
+            ])
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.green,
           foregroundColor: Colors.black,
-          onPressed: () {},
+          onPressed: () {
+            senhaSQLiteDatasource().inserirSenha(_senhaEntity);
+          },
           child: Icon(Icons.add),
         ),
       ),
     );
   }
-}
 
-
-class _Body extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        ListView(children: <Widget>[
-          fieldDescricao(),
-          fieldLogin(),
-          fieldSenha(),
-        ])
-      ],
+  Widget fieldDescricao() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        controller: descricaoController,
+        keyboardType: TextInputType.text,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Informe a descrição',
+        ),
+      ),
     );
   }
 
-
-Widget fieldDescricao() {
-  return Container(
-    padding: const EdgeInsets.all(10),
-    child: TextField(
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Informe a descrição',
+  Widget fieldLogin() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        controller: loginController,
+        keyboardType: TextInputType.text,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Login',
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget fieldLogin() {
-  return Container(
-    padding: const EdgeInsets.all(10),
-    child: TextField(
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Login',
+  Widget fieldSenha() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        controller: senhaController,
+        keyboardType: TextInputType.text,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Senha',
+        ),
       ),
-    ),
-  );
-}
-
-Widget fieldSenha() {
-  return Container(
-    padding: const EdgeInsets.all(10),
-    child: TextField(
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Senha',
-      ),
-    ),
-  );
-}
+    );
+  }
 }

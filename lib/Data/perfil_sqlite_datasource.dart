@@ -1,4 +1,3 @@
-import 'package:gerenciadorsenhas/perfil.dart';
 import 'package:gerenciadorsenhas/Data/perfil_entity.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'data_container.dart';
 
-class PerfilSQLiteDatasource {
+class senhaSQLiteDatasource {
   Future<Database> _getDatabase() async {
     // await deleteDatabase(
     //   join(await getDatabasesPath(),DATABASE_NAME),
