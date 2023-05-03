@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gerenciadorsenhas/Data/senha_sqlite_datasource..dart';
 import 'package:gerenciadorsenhas/cadsenhas.dart';
 import 'Data/perfil_sqlite_datasource.dart';
 import 'cadcartao.dart';
@@ -82,23 +83,7 @@ class menuprincipal extends StatelessWidget {
         ),
         appBar: AppBar(
             backgroundColor: Colors.teal, title: const Text('Menu Principal')),
-        body: FutureBuilder(
-          future: PerfilSQLiteDatasource().getAllPerfil(),
-          initialData: [],
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            }
 
-            return ListView.builder(
-              itemCount: snapshot.data?.length,
-              reverse: true,
-              itemBuilder: (context, index) {
-                return Text(snapshot.data?[index]);
-              },
-            );
-          },
-        ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(

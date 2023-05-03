@@ -17,17 +17,6 @@ class _cadsenhasState extends State<cadsenhas> {
   TextEditingController descricaoController = TextEditingController();
   TextEditingController loginController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
-  late final SenhaEntity _senhaEntity;
-
-  @override
-  void initState() {
-    super.initState();
-    if (_senhaEntity.senhaID == 0) {
-      descricaoController.text = _senhaEntity.descricao!;
-      loginController.text = _senhaEntity.login!;
-      senhaController.text = _senhaEntity.senha!;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +43,7 @@ class _cadsenhasState extends State<cadsenhas> {
           backgroundColor: Colors.green,
           foregroundColor: Colors.black,
           onPressed: () {
-            senhaSQLiteDatasource().inserirSenha(_senhaEntity);
+            senhaSQLiteDatasource().inserirSenha(descricaoController, loginController, senhaController);
           },
           child: Icon(Icons.add),
         ),

@@ -25,7 +25,7 @@ class senhaSQLiteDatasource {
     );
   }
 
-  Future inserirSenha(SenhaEntity senha) async {
+  Future inserirSenha(descricao, login, senha) async {
     try {
       final Database db = await _getDatabase();
       senha.senhaID = await db.rawInsert('''insert into $SENHA_TABLE_NAME(
