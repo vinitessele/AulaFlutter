@@ -1,14 +1,27 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:gerenciadorsenhas/Data/senha_sqlite_datasource..dart';
+import 'package:gerenciadorsenhas/Data/senha_sqlite_datasource.dart';
 import 'package:gerenciadorsenhas/cadsenhas.dart';
 import 'Data/perfil_sqlite_datasource.dart';
+import 'Data/senha_entity.dart';
 import 'cadcartao.dart';
 import 'geradorsenha.dart';
 import 'perfil.dart';
+import 'listaSenhas.dart';
 
-class menuprincipal extends StatelessWidget {
+class menuprincipal extends StatefulWidget {
+  const menuprincipal({Key? key}) : super(key: key);
+
+  @override
+  _menuprincipalState createState() {
+    return _menuprincipalState();
+  }
+}
+
+class _menuprincipalState extends State<menuprincipal> {
+  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,7 +66,7 @@ class menuprincipal extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return cadsenhas();
+                      return listaSenhas();
                     }));
                   }),
               ListTile(
@@ -83,7 +96,7 @@ class menuprincipal extends StatelessWidget {
         ),
         appBar: AppBar(
             backgroundColor: Colors.teal, title: const Text('Menu Principal')),
-
+        
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(

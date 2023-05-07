@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'Data/senha_entity.dart';
-import 'Data/senha_sqlite_datasource..dart';
+import 'Data/senha_sqlite_datasource.dart';
 
 class cadsenhas extends StatefulWidget {
   const cadsenhas({Key? key}) : super(key: key);
