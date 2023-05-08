@@ -14,9 +14,15 @@ class cadsenhas extends StatefulWidget {
 }
 
 class _cadsenhasState extends State<cadsenhas> {
-  TextEditingController descricaoController = TextEditingController();
-  TextEditingController loginController = TextEditingController();
-  TextEditingController senhaController = TextEditingController();
+  TextEditingController _descricaoController = TextEditingController();
+  TextEditingController _loginController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+  bool _ocultaSenha = false;
+  @override
+  void initState() {
+    super.initState();
+    _ocultaSenha = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +49,8 @@ class _cadsenhasState extends State<cadsenhas> {
           backgroundColor: Colors.green,
           foregroundColor: Colors.black,
           onPressed: () {
-            senhaSQLiteDatasource().inserirSenha(descricaoController, loginController, senhaController);
+            senhaSQLiteDatasource().inserirSenha(_descricaoController.text,
+                _loginController.text, _senhaController.text);
           },
           child: Icon(Icons.add),
         ),
@@ -55,7 +62,7 @@ class _cadsenhasState extends State<cadsenhas> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
-        controller: descricaoController,
+        controller: _descricaoController,
         keyboardType: TextInputType.text,
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
@@ -69,7 +76,7 @@ class _cadsenhasState extends State<cadsenhas> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextField(
-        controller: loginController,
+        controller: _loginController,
         keyboardType: TextInputType.text,
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
@@ -81,14 +88,32 @@ class _cadsenhasState extends State<cadsenhas> {
 
   Widget fieldSenha() {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(20.0),
       child: TextField(
-        controller: senhaController,
-        keyboardType: TextInputType.text,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'Senha',
+        controller: _senhaController,
+        obscureText: _ocultaSenha,
+        decoration: InputDecoration(
+          border: UnderlineInputBorder(),
+          hintText: "Informe a sua senha",
+          labelText: "Senha",
+          helperText: "Digite uma senha para sua segurança",
+          helperStyle: TextStyle(color: Colors.green),
+          suffixIcon: IconButton(
+            icon:
+                Icon(_ocultaSenha ? Icons.visibility : Icons.visibility_off),
+            onPressed: () {
+              setState(
+                () {
+                  _ocultaSenha = !_ocultaSenha;
+                },
+              );
+            },
+          ),
+          alignLabelWithHint: false,
+          filled: true,
         ),
+        keyboardType: TextInputType.visiblePassword,
+        textInputAction: TextInputAction.done,
       ),
     );
   }

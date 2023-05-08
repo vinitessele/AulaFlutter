@@ -79,6 +79,7 @@ class _Login extends StatelessWidget {
                 onChanged: (text) {
                   pass = text;
                 },
+                
               ),
             ),
             TextButton(

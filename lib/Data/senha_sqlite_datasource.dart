@@ -6,16 +6,14 @@ import 'package:sqflite/sqflite.dart';
 import 'data_container.dart';
 
 class senhaSQLiteDatasource {
-
   Future inserirSenha(descricao, login, senha) async {
-
-      final db = await Conexao.getConexaoDB();
-      senha.senhaID = await db.rawInsert('''insert into $SENHA_TABLE_NAME(
+    final db = await Conexao.getConexaoDB();
+    senha.senhaID = await db.rawInsert('''insert into $SENHA_TABLE_NAME(
               $SENHA_COLUMN_DESCRICAO,
               $SENHA_COLUMN_LOGIN,
               $SENHA_COLUMN_SENHA)
               values(
-                '${senha.descricao}','${senha.login}','${senha.senha}') 
+                '${descricao}','${login}','${senha}') 
               ''');
   }
 
@@ -49,11 +47,19 @@ class senhaSQLiteDatasource {
     });
   }
 
-  Future<void> deletarSenha(SenhaEntity senha) async {
+  Future<void> deletarSenhaID(senhaId) async {
     final db = await Conexao.getConexaoDB();
     await db.transaction((txn) async {
-      await txn.rawUpdate(
-          'delete from $SENHA_TABLE_NAME where id = ?', [senha.senhaID]);
+      await txn
+          .rawUpdate('delete from $SENHA_TABLE_NAME where id = ?', [senhaId]);
+    });
+  }
+
+  Future<void> deletarSenhas() async {
+    final db = await Conexao.getConexaoDB();
+    await db.transaction((txn) async {
+      await txn
+          .rawUpdate('delete from $SENHA_TABLE_NAME ');
     });
   }
 

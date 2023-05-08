@@ -20,6 +20,13 @@ class Conexao {
                 'admin','admin@admin','123') 
               ''');     
         await db.execute(CREATE_SENHA_TABLE_SCRIPT);
+        await db.rawInsert('''insert into $SENHA_TABLE_NAME(
+              $SENHA_COLUMN_DESCRICAO,
+              $SENHA_COLUMN_LOGIN,
+              $SENHA_COLUMN_SENHA)
+              values(
+                'admin','admin@admin','123') 
+              ''');             
         await db.execute(CREATE_CARTAO_TABLE_SCRIPT);              
       });
     }

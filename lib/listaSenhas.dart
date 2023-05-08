@@ -22,10 +22,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late  TextEditingController textEditingController ; 
+
   @override
   void didUpdateWidget(MyHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {});
+    setState(() {
+      
+    });
   }
 
   @override
@@ -36,11 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
-              senhaSQLiteDatasource().deletarSenha(SenhaEntity());
+              senhaSQLiteDatasource().deletarSenhas();
               setState(() {});
             },
             child: Text(
-              "Delete all",
+              "Excluir todos",
               style: TextStyle(color: Colors.yellow),
             ),
           )
@@ -59,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   key: UniqueKey(),
                   background: Container(color: Colors.red),
                   onDismissed: (direction) {
-                    senhaSQLiteDatasource().deletarSenha(item.senhaID as SenhaEntity);
+                    senhaSQLiteDatasource().deletarSenhaID(item.senhaID);
                   },
                   child: ListTile(
                     title: Text(item.descricao!),
