@@ -18,6 +18,8 @@ dependencies:
   image_cropper: ^3.0.2
   image_picker: ^0.8.7+1
   flushbar: ^1.10.4
+  url_launcher: ^6.1.11
+  flutter_email_sender: ^5.2.0
 
 dev_dependencies:
   flutter_test:

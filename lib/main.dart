@@ -85,7 +85,7 @@ class _Login extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return recuperarsenha();
+                  return recuperarSenha();
                 }));
               },
               child: const Text(

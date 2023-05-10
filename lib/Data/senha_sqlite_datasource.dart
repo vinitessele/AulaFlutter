@@ -93,4 +93,16 @@ class senhaSQLiteDatasource {
     }
     return senhas;
   }
+
+  Future<bool> getSenhaEmail(String filtro) async {
+    final db = await Conexao.getConexaoDB();
+    List<Map> dbResult = await db.rawQuery(
+        'SELECT * from $SENHA_TABLE_NAME where $SENHA_COLUMN_LOGIN = ?',
+        ['$filtro']);
+
+    if (dbResult.isEmpty)
+      return true;
+    else
+      return true;
+  }
 }
