@@ -9,7 +9,6 @@ class Conexao {
   static Future<Database> getConexaoDB() async {
     if (_database == null) {
       String databasesPath =  join(await getDatabasesPath(), DATABASE_NAME);
-      print(databasesPath);
       _database = await openDatabase(databasesPath, version: 1, onCreate: (Database db, int version) async {
         await db.execute(CREATE_PERFIL_TABLE_SCRIPT);
         await db.rawInsert('''insert into $PERFIL_TABLE_NAME(

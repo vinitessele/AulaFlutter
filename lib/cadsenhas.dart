@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'Data/senha_entity.dart';
 import 'Data/senha_sqlite_datasource.dart';
 
 class cadsenhas extends StatefulWidget {
-  const cadsenhas({Key? key}) : super(key: key);
+ 
 
   @override
   _cadsenhasState createState() {
@@ -18,12 +16,12 @@ class _cadsenhasState extends State<cadsenhas> {
   TextEditingController _loginController = TextEditingController();
   TextEditingController _senhaController = TextEditingController();
   bool _ocultaSenha = false;
+
   @override
   void initState() {
     super.initState();
-    _ocultaSenha = true;
+     _ocultaSenha = true;
   }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -99,8 +97,7 @@ class _cadsenhasState extends State<cadsenhas> {
           helperText: "Digite uma senha para sua segurança",
           helperStyle: TextStyle(color: Colors.green),
           suffixIcon: IconButton(
-            icon:
-                Icon(_ocultaSenha ? Icons.visibility : Icons.visibility_off),
+            icon: Icon(_ocultaSenha ? Icons.visibility : Icons.visibility_off),
             onPressed: () {
               setState(
                 () {
@@ -118,3 +115,4 @@ class _cadsenhasState extends State<cadsenhas> {
     );
   }
 }
+

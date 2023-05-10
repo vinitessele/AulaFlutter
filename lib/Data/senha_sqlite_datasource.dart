@@ -38,6 +38,20 @@ class senhaSQLiteDatasource {
     return senhas;
   }
 
+    Future<SenhaEntity> getSenhaId(senhaID) async {
+    final db = await Conexao.getConexaoDB();
+    var dbResult = await db.rawQuery('SELECT senhaID from $SENHA_TABLE_NAME where $SENHA_COLUMN_ID = $senhaID');
+      SenhaEntity senha = SenhaEntity();
+      var dbItem = dbResult.first;
+      senha.senhaID = dbItem['senhaID'] as int?;
+      senha.descricao = dbItem['descricao'] as String?;
+      senha.login = dbItem['login'] as String?;
+      senha.senha = dbItem['senha'] as String?;
+      return senha;
+    }
+
+  
+
   Future<void> atualizarSenha(SenhaEntity senha) async {
     final db = await Conexao.getConexaoDB();
     await db.transaction((txn) async {

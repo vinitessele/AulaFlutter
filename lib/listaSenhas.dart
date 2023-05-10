@@ -22,14 +22,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late  TextEditingController textEditingController ; 
+  late TextEditingController textEditingController;
 
   @override
   void didUpdateWidget(MyHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
@@ -52,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: FutureBuilder<List<SenhaEntity>>(
         future: senhaSQLiteDatasource().getAllSenha(),
-        builder: (BuildContext context, AsyncSnapshot<List<SenhaEntity>> snapshot) {
+        builder:
+            (BuildContext context, AsyncSnapshot<List<SenhaEntity>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
               physics: BouncingScrollPhysics(),
@@ -70,8 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     subtitle: Text(item.login!),
                     leading: CircleAvatar(child: Text(item.senhaID.toString())),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => cadsenhas()));
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(item.login!),
+                              content: Text(item.senha!),
+                            );
+                          });
                     },
                   ),
                 );
@@ -85,8 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => cadsenhas()));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => cadsenhas()));
           }),
     );
   }
