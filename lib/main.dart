@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:gerenciadorsenhas/Data/perfil_sqlite_datasource.dart';
+import 'package:gerenciadorsenhas/perfil.dart';
 import 'menuprincipal.dart';
 import 'recuperarsenha.dart';
-import 'cadusuario.dart';
- 
+
 void main() {
   runApp(MyApp());
 }
@@ -39,8 +40,7 @@ class _Login extends StatelessWidget {
                       color: Colors.blue,
                       fontWeight: FontWeight.w500,
                       fontSize: 30),
-                )
-                ),
+                )),
             Container(
               alignment: Alignment.center,
               width: 200,
@@ -79,7 +79,6 @@ class _Login extends StatelessWidget {
                 onChanged: (text) {
                   pass = text;
                 },
-                
               ),
             ),
             TextButton(
@@ -97,15 +96,16 @@ class _Login extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
                     child: const Text('Login'),
-                    onPressed: () {
-                      //if (email == 'vinicius@gmail.com' && pass == '123') {
+                    onPressed: () async {
+                      if (await perfilSQLiteDatasource()
+                          .getPerfilLogin(email, pass)) {
+                        //if (email == 'vinicius@gmail.com' && pass == '123') {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return menuprincipal();
+                          return menuprincipal(email: email,);
                         }));
-                      //}
-                    }
-                    )),
+                      }
+                    })),
             Row(
               children: <Widget>[
                 const Text('Não possui conta?'),
@@ -117,7 +117,7 @@ class _Login extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return cadusuario();
+                      return cadperfilUsuario();
                     }));
                   },
                 )
@@ -128,4 +128,3 @@ class _Login extends StatelessWidget {
         ));
   }
 }
- 

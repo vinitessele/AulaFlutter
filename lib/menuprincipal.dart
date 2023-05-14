@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:gerenciadorsenhas/Data/senha_sqlite_datasource.dart';
 import 'package:gerenciadorsenhas/cadsenhas.dart';
+import 'package:gerenciadorsenhas/listaCartao.dart';
 import 'Data/perfil_sqlite_datasource.dart';
 import 'Data/senha_entity.dart';
 import 'cadcartao.dart';
@@ -11,7 +12,8 @@ import 'perfil.dart';
 import 'listaSenhas.dart';
 
 class menuprincipal extends StatefulWidget {
-  const menuprincipal({Key? key}) : super(key: key);
+  final String email;
+    const menuprincipal({Key? key, required this.email}) : super(key: key);
 
   @override
   _menuprincipalState createState() {
@@ -20,7 +22,6 @@ class menuprincipal extends StatefulWidget {
 }
 
 class _menuprincipalState extends State<menuprincipal> {
-  
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,8 @@ class _menuprincipalState extends State<menuprincipal> {
           child: ListView(
             children: [
               UserAccountsDrawerHeader(
-                accountName: Text("Sou Eu"),
-                accountEmail: Text("Sou eu@gmail.com"),
+                accountName: Text('Vinicius'),
+                accountEmail: Text(widget.email),
                 currentAccountPicture: CircleAvatar(
                   radius: 30.0,
                   backgroundImage: NetworkImage(
@@ -55,7 +56,7 @@ class _menuprincipalState extends State<menuprincipal> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return perfilUsuario();
+                      return cadperfilUsuario();
                     }));
                   }),
               ListTile(
@@ -77,7 +78,7 @@ class _menuprincipalState extends State<menuprincipal> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return cadcartao();
+                      return listaCartao();
                     }));
                   }),
               ListTile(
@@ -96,7 +97,6 @@ class _menuprincipalState extends State<menuprincipal> {
         ),
         appBar: AppBar(
             backgroundColor: Colors.teal, title: const Text('Menu Principal')),
-        
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
@@ -107,5 +107,9 @@ class _menuprincipalState extends State<menuprincipal> {
         ),
       ),
     );
+  }
+
+  Future<String> getNome(email) async {
+    return Future.value(perfilSQLiteDatasource().getPerfilLogado(email));
   }
 }

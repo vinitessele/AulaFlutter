@@ -48,9 +48,7 @@ class senhaSQLiteDatasource {
       senha.login = dbItem['login'] as String?;
       senha.senha = dbItem['senha'] as String?;
       return senha;
-    }
-
-  
+    }  
 
   Future<void> atualizarSenha(SenhaEntity senha) async {
     final db = await Conexao.getConexaoDB();
@@ -101,7 +99,7 @@ class senhaSQLiteDatasource {
         ['$filtro']);
 
     if (dbResult.isEmpty)
-      return true;
+      return false;
     else
       return true;
   }
